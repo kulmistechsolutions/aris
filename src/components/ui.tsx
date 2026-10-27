@@ -33,14 +33,14 @@ export function SectionHeading({
     <Reveal className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       <Eyebrow light={light}>{eyebrow}</Eyebrow>
       <h2
-        className={`mt-4 font-display text-3xl leading-tight font-bold tracking-tight sm:text-4xl lg:text-[2.75rem] ${
+        className={`mt-4 font-display text-[1.85rem] leading-tight font-bold tracking-tight text-balance sm:text-4xl lg:text-[2.75rem] ${
           light ? "text-white" : "text-ink-900"
         }`}
       >
         {title}
       </h2>
       {text && (
-        <p className={`mt-5 text-lg leading-relaxed ${light ? "text-ink-300" : "text-ink-500"}`}>{text}</p>
+        <p className={`mt-4 text-base leading-relaxed sm:mt-5 sm:text-lg ${light ? "text-ink-300" : "text-ink-500"}`}>{text}</p>
       )}
     </Reveal>
   );
@@ -63,7 +63,7 @@ export function Button({
   return (
     <Link
       href={href}
-      className={`group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition ${styles}`}
+      className={`group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition ${styles}`}
     >
       {children}
       <Icon name="arrow" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -83,17 +83,17 @@ export function PageHero({
   image: string;
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-ink-950 pt-40 pb-24 lg:pt-48 lg:pb-32">
+    <section className="relative isolate overflow-hidden bg-ink-950 pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-32">
       <Image src={image} alt="" fill priority sizes="100vw" className="-z-20 object-cover opacity-40" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/85 to-brand-900/40" />
       <div className="grid-lines absolute inset-0 -z-10" />
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <Reveal className="max-w-3xl">
           <Eyebrow light>{eyebrow}</Eyebrow>
-          <h1 className="mt-5 font-display text-4xl leading-[1.1] font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-5 font-display text-[2.1rem] leading-[1.1] font-bold tracking-tight text-balance text-white sm:text-5xl lg:text-6xl">
             {title}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-300">{text}</p>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-300 sm:mt-6 sm:text-lg">{text}</p>
         </Reveal>
       </div>
     </section>
