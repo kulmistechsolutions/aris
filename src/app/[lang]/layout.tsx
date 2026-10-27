@@ -24,7 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: { default: t.meta.title, template: "%s | AIRIS Ltd." },
     description: t.meta.description,
     icons: { icon: "/images/icon.png" },
-    alternates: { languages: { en: "/en", so: "/so" } },
   };
 }
 

@@ -5,53 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { company, navPaths } from "@/lib/data";
-import { type Dict, type Locale, localeNames, locales, localize, stripLocale } from "@/lib/i18n";
+import { type Dict, type Locale, localize, stripLocale } from "@/lib/i18n";
 import { Icon } from "./Icon";
-
-function LanguageSwitch({
-  lang,
-  path,
-  tone,
-  label,
-}: {
-  lang: Locale;
-  path: string;
-  tone: "light" | "dark";
-  label: string;
-}) {
-  return (
-    <div
-      role="group"
-      aria-label={label}
-      className={`flex items-center rounded-full p-1 text-xs font-semibold ring-1 transition-colors ${
-        tone === "dark" ? "bg-ink-50 ring-ink-200" : "bg-white/10 ring-white/20 backdrop-blur"
-      }`}
-    >
-      {locales.map((l) => {
-        const active = l === lang;
-        return (
-          <Link
-            key={l}
-            href={localize(l, path)}
-            scroll={false}
-            hrefLang={l}
-            aria-current={active ? "true" : undefined}
-            title={localeNames[l]}
-            className={`rounded-full px-3 py-1.5 uppercase transition-all duration-300 ${
-              active
-                ? "bg-brand-500 text-white shadow-md shadow-brand-500/30"
-                : tone === "dark"
-                  ? "text-ink-500 hover:text-ink-900"
-                  : "text-white/70 hover:text-white"
-            }`}
-          >
-            {l}
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
 
 export default function Header({ lang, nav }: { lang: Locale; nav: Dict["nav"] }) {
   const pathname = usePathname();
@@ -139,12 +94,11 @@ export default function Header({ lang, nav }: { lang: Locale; nav: Dict["nav"] }
         <div className="hidden items-center gap-3 lg:flex">
           <a
             href={company.phoneHref}
-            className={`hidden items-center gap-2 text-sm font-medium whitespace-nowrap xl:flex ${solid ? "text-ink-700" : "text-white/90"}`}
+            className={`flex items-center gap-2 text-sm font-medium whitespace-nowrap ${solid ? "text-ink-700" : "text-white/90"}`}
           >
             <Icon name="phone" className="h-4 w-4" />
             {company.phone}
           </a>
-          <LanguageSwitch lang={lang} path={path} tone={solid ? "dark" : "light"} label={nav.language} />
           <Link
             href={localize(lang, "/contact")}
             className="rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold whitespace-nowrap text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-600"
@@ -153,17 +107,14 @@ export default function Header({ lang, nav }: { lang: Locale; nav: Dict["nav"] }
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <LanguageSwitch lang={lang} path={path} tone={solid ? "dark" : "light"} label={nav.language} />
-          <button
-            onClick={() => setOpen((o) => !o)}
-            className={`grid h-11 w-11 place-items-center rounded-full ${solid ? "text-ink-900" : "text-white"}`}
-            aria-label={open ? nav.closeMenu : nav.openMenu}
-            aria-expanded={open}
-          >
-            <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
-          </button>
-        </div>
+        <button
+          onClick={() => setOpen((o) => !o)}
+          className={`grid h-11 w-11 place-items-center rounded-full lg:hidden ${solid ? "text-ink-900" : "text-white"}`}
+          aria-label={open ? nav.closeMenu : nav.openMenu}
+          aria-expanded={open}
+        >
+          <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
+        </button>
       </div>
 
       {/* Mobile menu */}

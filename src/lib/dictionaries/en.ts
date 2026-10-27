@@ -9,7 +9,6 @@ const en = {
     quote: "Get a Quote",
     openMenu: "Open menu",
     closeMenu: "Close menu",
-    language: "Change language",
     home: "AIRIS home",
   },
   stats: [

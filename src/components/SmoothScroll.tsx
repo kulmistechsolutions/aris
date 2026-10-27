@@ -4,7 +4,6 @@ import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { stripLocale } from "@/lib/i18n";
 
 declare global {
   interface Window {
@@ -40,23 +39,21 @@ export default function SmoothScroll() {
     };
   }, []);
 
-  // On navigation: jump to the top, or glide to the #hash target.
-  // A language switch keeps the same page, so it keeps the scroll position too.
-  const page = stripLocale(pathname);
-  const prevPage = useRef(page);
+  // On navigation (not the first load): jump to the top, or glide to the #hash target.
+  const firstLoad = useRef(true);
   useEffect(() => {
     const lenis = window.lenis;
-    if (!lenis) return;
-    const sameLanguageSwap = prevPage.current === page;
-    prevPage.current = page;
-    if (sameLanguageSwap) return;
+    if (firstLoad.current || !lenis) {
+      firstLoad.current = false;
+      return;
+    }
     const hash = window.location.hash;
     if (hash) {
       const t = setTimeout(() => lenis.scrollTo(hash, { offset: ANCHOR_OFFSET }), 120);
       return () => clearTimeout(t);
     }
     lenis.scrollTo(0, { immediate: true });
-  }, [page]);
+  }, [pathname]);
 
   return null;
 }
